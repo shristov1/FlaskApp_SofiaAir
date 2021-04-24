@@ -74,17 +74,18 @@ def clean_data() -> list:
 
 def predict(weather):
 
-    model, sc_regr = load_models()
-    weather = sc_regr.transform(weather)
-    prediction = model.predict(weather)
-    return prediction
+    # model, sc_regr = load_models()
+    # weather = sc_regr.transform(weather)
+    # prediction = model.predict(weather)
+    # return prediction
+    pass
 
 
 def return_figures():
     all_data = clean_data()
     weather = all_data[0]
     date = all_data[1]
-    prediction = predict(weather)
+    # prediction = predict(weather)
 
     graph_one = []
     graph_one.append(
@@ -112,27 +113,27 @@ def return_figures():
                 yaxis = dict(title = 'Forecasted humidity'),
                 )
 
-    graph_three = []
-    x_val = date.Date.dt.date
-    y_val = prediction
-    graph_three.append(
-        go.Scatter(
-            x=x_val.tolist(),
-            y=y_val,
-            mode='markers',
-            marker=dict(color=list(map(SetColor, y_val)))
-        )
-    )
-
-    layout_three = dict(title = 'Predicted PM 10 concentration for the next 10 days',
-                xaxis = dict(title = 'Date'),
-                yaxis = dict(title = 'PM 10 concentration, µg/m³'),
-                )
+    # graph_three = []
+    # x_val = date.Date.dt.date
+    # y_val = prediction
+    # graph_three.append(
+    #     go.Scatter(
+    #         x=x_val.tolist(),
+    #         y=y_val,
+    #         mode='markers',
+    #         marker=dict(color=list(map(SetColor, y_val)))
+    #     )
+    # )
+    #
+    # layout_three = dict(title = 'Predicted PM 10 concentration for the next 10 days',
+    #             xaxis = dict(title = 'Date'),
+    #             yaxis = dict(title = 'PM 10 concentration, µg/m³'),
+    #             )
 
     figures = []
     figures.append(dict(data=graph_one, layout=layout_one))
     figures.append(dict(data=graph_two, layout=layout_two))
-    figures.append(dict(data=graph_three, layout=layout_three))
+    # figures.append(dict(data=graph_three, layout=layout_three))
 
     return figures
 
