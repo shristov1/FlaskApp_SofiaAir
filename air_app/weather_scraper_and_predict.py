@@ -15,7 +15,6 @@
 import weathercom
 import pandas as pd
 import matplotlib.pyplot as plt
-from tensorflow import keras
 from .dataframe_wrangling import is_holiday, is_workday, season
 import datetime
 import joblib
@@ -41,7 +40,7 @@ def SetColor(x):
 
 
 def load_models():
-    model = keras.models.load_model('C:\\Users\\Deya\\Documents\\StansBS\\sofia_air_quality\\FlaskApp\\airqualityapp\\ann_regr_weather.h5')
+    model = joblib.load('air_app/svm_regr.bin')
     sc_regr = joblib.load('C:\\Users\\Deya\\Documents\\StansBS\\sofia_air_quality\\FlaskApp\\airqualityapp\\std_scaler.bin')
 
     return model, sc_regr
@@ -114,7 +113,7 @@ def return_figures():
 
     graph_three = []
     x_val = date.Date.dt.date
-    y_val = np.hstack(prediction).tolist()
+    y_val = prediction
     graph_three.append(
         go.Scatter(
             x=x_val.tolist(),
