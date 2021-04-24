@@ -40,8 +40,9 @@ def SetColor(x):
 
 
 def load_models():
-    model = joblib.load('svm_regr.bin')
-    sc_regr = joblib.load('std_scaler.bin')
+    dir = os.getcwd()
+    model = joblib.load(dir + 'air_app/svm_regr.bin')
+    sc_regr = joblib.load(dir + 'air_app/std_scaler.bin')
 
     return model, sc_regr
 
