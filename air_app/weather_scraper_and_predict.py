@@ -40,8 +40,8 @@ def SetColor(x):
 
 
 def load_models():
-    model = joblib.load('air_app/svm_regr.bin')
-    sc_regr = joblib.load('C:\\Users\\Deya\\Documents\\StansBS\\sofia_air_quality\\FlaskApp\\airqualityapp\\std_scaler.bin')
+    model = joblib.load('svm_regr.bin')
+    sc_regr = joblib.load('std_scaler.bin')
 
     return model, sc_regr
 
