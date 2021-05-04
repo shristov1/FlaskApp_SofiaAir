@@ -85,7 +85,7 @@ def return_figures():
     all_data = clean_data()
     weather = all_data[0]
     date = all_data[1]
-    # prediction = predict(weather)
+    prediction = predict(weather)
 
     graph_one = []
     graph_one.append(
