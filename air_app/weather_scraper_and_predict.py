@@ -15,6 +15,7 @@
 import weathercom
 import pandas as pd
 import matplotlib.pyplot as plt
+from tensorflow import keras
 from .dataframe_wrangling import is_holiday, is_workday, season
 import datetime
 import joblib
@@ -28,21 +29,18 @@ HOLIDAYS = [datetime.date(2020,4,19), datetime.date(2021,1,1), datetime.date(202
             datetime.date(2020,9,22),datetime.date(2020,12,24),datetime.date(2020,12,25),datetime.date(2020,12,26)]
 
 def SetColor(x):
-    try:
-        if(int(x) < 5):
-            return "green"
-        elif(int(x) >= 5) and (int(x) <= 30):
-            return "yellow"
-        elif(int(x) > 30):
-            return "red"
-    except ValueError:
-        return "black"
+    if(int(x) < 5):
+        return "green"
+    elif(int(x) >= 5) and (int(x) <= 30):
+        return "yellow"
+    elif(int(x) > 30):
+        return "red"
 
-
+# TODO: sort out model loading
 def load_models():
     dir = os.getcwd()
-    model = joblib.load(dir + 'air_app/svm_regr.bin')
-    sc_regr = joblib.load(dir + 'air_app/std_scaler.bin')
+    model = joblib.load('./airqualityapp/svm_regr.bin')
+    sc_regr = joblib.load('./airqualityapp/std_scaler.bin')
 
     return model, sc_regr
 
@@ -68,7 +66,7 @@ def clean_data() -> list:
     weather['IsHoliday'] = date['Date'].apply(is_holiday)
     weather['Weekday'] = date['Date'].dt.dayofweek
     weather['Season'] = date['Date'].apply(season)
-
+    weather.fillna(0, inplace=True)
     return [weather, date]
 
 
@@ -78,7 +76,6 @@ def predict(weather):
     weather = sc_regr.transform(weather)
     prediction = model.predict(weather)
     return prediction
-
 
 
 def return_figures():
@@ -115,7 +112,7 @@ def return_figures():
 
     graph_three = []
     x_val = date.Date.dt.date
-    y_val = prediction
+    y_val = np.hstack(prediction).tolist()
     graph_three.append(
         go.Scatter(
             x=x_val.tolist(),
@@ -124,10 +121,10 @@ def return_figures():
             marker=dict(color=list(map(SetColor, y_val)))
         )
     )
-    
+
     layout_three = dict(title = 'Predicted PM 10 concentration for the next 10 days',
                 xaxis = dict(title = 'Date'),
-                yaxis = dict(title = 'PM 10 concentration'),
+                yaxis = dict(title = 'PM 10 concentration, µg/m³'),
                 )
 
     figures = []
