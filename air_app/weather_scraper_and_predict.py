@@ -127,7 +127,7 @@ def return_figures():
     
     layout_three = dict(title = 'Predicted PM 10 concentration for the next 10 days',
                 xaxis = dict(title = 'Date'),
-                yaxis = dict(title = 'PM 10 concentration, µg/m³'),
+                yaxis = dict(title = 'PM 10 concentration'),
                 )
 
     figures = []
