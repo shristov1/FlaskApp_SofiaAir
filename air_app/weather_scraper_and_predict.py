@@ -39,8 +39,8 @@ def SetColor(x):
 # TODO: sort out model loading
 def load_models():
     dir = os.getcwd()
-    model = joblib.load('./airqualityapp/svm_regr.bin')
-    sc_regr = joblib.load('./airqualityapp/std_scaler.bin')
+    model = joblib.load('./air_app/svm_regr.bin')
+    sc_regr = joblib.load('./air_app/std_scaler.bin')
 
     return model, sc_regr
 
