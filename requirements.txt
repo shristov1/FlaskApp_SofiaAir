@@ -2,7 +2,7 @@ Flask
 plotly
 weathercom
 tensorflow
-h5py=2.10.0
+h5py==2.10.0
 
 pandas~=1.1.3
 joblib~=0.17.0
